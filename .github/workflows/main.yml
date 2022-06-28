@@ -2,7 +2,7 @@ name: De paseo por el metaverso más foral
 
 on:
   schedule:
-    - cron: '30 1 */1 * *'
+    - cron: '30 * * * *'
 
 jobs:
   check:
