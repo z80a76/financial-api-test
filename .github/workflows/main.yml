@@ -29,10 +29,10 @@ jobs:
             curl \
               "https://eodhistoricaldata.com/api/search/$QUOTEID?api_token=$EODHISTORICALDATA_API_KEY" \
             | jq -a -j ".[0].Code, .[0].previousCloseDate, .[0].previousClose" \
-            | sed "s/\"/,/g" >> quotes.csv
-            echo "\n" >> quotes.csv
+            | sed "s/\"/,/g" >> quotes_$QUOTEID.csv
+            echo "\n" >> quotes_$QUOTEID.csv
           done
-          git add quotes.csv
+          git add quotes*.csv
           git commit --message="Toma de datos del $DATE"
       - name: Hace el «push»
         uses: ad-m/github-push-action@master
