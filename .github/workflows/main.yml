@@ -8,6 +8,11 @@ jobs:
   check:
     runs-on: ubuntu-latest
     steps:
+      - name: view the secrets context
+        shell: bash
+        run: echo "$SECRETS_CONTEXT"
+        env:
+          SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: Trae el repositorio
         uses: actions/checkout@v2
         with:
