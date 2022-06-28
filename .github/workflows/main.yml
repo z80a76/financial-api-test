@@ -1,0 +1,34 @@
+name: De paseo por el metaverso más foral
+
+on:
+  schedule:
+    - cron: '30 1 */1 * *'
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trae el repositorio
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Actualiza datos de cotización
+        env:
+          EODHISTORICALDATA_API_KEY: ${{ secrets.EODHISTORICALDATA_API_KEY }}
+        run: |-
+          git config user.name "bautista"
+          git config user.email "actions@users.noreply.github.com"
+          for quote in ["LU0996182647", "LU1387591305"]
+          do
+            curl \
+              "https://eodhistoricaldata.com/api/search/LU0996182647?api_token=$EODHISTORICALDATA_API_KEY" \
+            | jq -a -j ".[0].Code, .[0].previousCloseDate, .[0].previousClose" quote.json \
+            | sed "s/\"/\|/g" >> quotes.csv
+          done
+          git add quotes.csv
+          git commit --message="Toma de datos del $DATE"
+      - name: Hace el «push»
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.token }}
