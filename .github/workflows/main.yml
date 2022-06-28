@@ -24,7 +24,7 @@ jobs:
         run: |-
           git config user.name "bautista"
           git config user.email "actions@users.noreply.github.com"
-          for QUOTEID in ["LU0996182647", "LU1387591305"]
+          for QUOTEID in "LU0996182647", "LU1387591305"
           do
             curl \
               "https://eodhistoricaldata.com/api/search/$QUOTEID?api_token=$EODHISTORICALDATA_API_KEY" \
