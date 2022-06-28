@@ -23,7 +23,7 @@ jobs:
           do
             curl \
               "https://eodhistoricaldata.com/api/search/LU0996182647?api_token=$EODHISTORICALDATA_API_KEY" \
-            | jq -a -j ".[0].Code, .[0].previousCloseDate, .[0].previousClose" quote.json \
+            | jq -a -j ".[0].Code, .[0].previousCloseDate, .[0].previousClose" \
             | sed "s/\"/\|/g" >> quotes.csv
           done
           git add quotes.csv
