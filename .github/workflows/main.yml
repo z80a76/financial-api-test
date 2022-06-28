@@ -2,7 +2,7 @@ name: Actualización de cotizaciones
 
 on:
   schedule:
-    - cron: '30 * * * *'
+    - cron: '*/30 * * * *'
 
 jobs:
   check:
